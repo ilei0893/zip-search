@@ -6,35 +6,42 @@ class Zipsearch extends Component{
 constructor(props){  
   super(props);
   this.state = {
-      zip: null
+      zip: ""
     };
     this.handleZipChange = this.handleZipChange.bind(this);
-<<<<<<< HEAD
   }
+
+    componentDidMount(){
+        const url = "http://ctp-zip-api.herokuapp.com/zip/";
+        axios.get(url + this.props.zip)
+        .then((response) => {
+            const data = response.data;
+
+            for(let i = 0; i < data.length; i++)
+            {
+                const newZipObj = {
+                    state: data[i].State,
+                    location: data[i].Lat + data[i].Long,
+                    population: data[i].EstimatedPopulation,
+                    total: data[i].TotalWages
+                };
+                this.setState({zip: newZipObj});
+            }
+        })
+        .catch((err) => console.log(err));
+    }
 
     handleZipChange(events){
         this.setState({
             zip: events.target.value
         });
     }
-=======
-}
 
-    handleZipChange(event)
-    { this.setState = ({zip: event.target.zip}); }
-
-
-
->>>>>>> 5570eb09f51d32327c5b30282dbd5ad84e4d4f8f
     render() {
         return (
             <div className = "search">
-                <label for="zip">Enter a zip code: </label>
-<<<<<<< HEAD
-                <input type="text" value={this.state.zip} onChange = {this.handleZipChange}></input>
-=======
-                <input placeholder="Try 10016" type="text" value={this.state.zip} onChange = {this.handleZipChange}></input>
->>>>>>> 5570eb09f51d32327c5b30282dbd5ad84e4d4f8f
+                <label htmlFor="zip">Enter a zip code: </label>
+                <input type="text" value={this.props.zip} onChange = {this.handleZipChange}></input>
             </div>
         );
     }
