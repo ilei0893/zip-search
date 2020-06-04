@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import axios from "axios";
 
 class Zipsearch extends Component{
-    state ={ zip: null};
+    constructor(props){
+        super(props)
+            this.state ={ zip: null};
+    }
 
     componentDidMount(){
         axios
@@ -10,8 +13,12 @@ class Zipsearch extends Component{
         .then((respone) => {
             const data = respone.data;
 
-            const newZipObj={
+            const newZipObj ={ 
                 city: data.City,
+                state: data.State,
+                location: data.location,
+                population: data.population,
+                totalwages: data.TotalWages      
             }
         });
     }
