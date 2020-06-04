@@ -7,7 +7,7 @@ class App extends Component{
     return (
       <div className="Zip">
         <h1 className="main-header">Zip Searcher</h1>
-          <Zipsearch zip="10016"/>
+          <Zipsearch />
       </div>
     );
   }

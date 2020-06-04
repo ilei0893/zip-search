@@ -6,30 +6,27 @@ class Zipsearch extends Component{
 constructor(props){  
   super(props);
   this.state = {
-      zip: ""
-      neweZip: []
+      zip: null,
+      newZip: [],
     };
     this.handleZipChange = this.handleZipChange.bind(this);
   }
 
     // componentDidMount(){
-    //     const url = `http://ctp-zip-api.herokuapp.com/zip/`;
-    //     axios.get(url + this.props.zip)
+    //     const url = "http://ctp-zip-api.herokuapp.com/zip/";
+    //     axios.get(url + this.state.zip)
     //     .then((response) => {
     //         const data = response.data;
-
-    //         for(let i = 0; i < data.length; i++)
-    //         {
     //             const newZipObj = {
-    //                 state: data[i].State,
-    //                 lat: data[i].Lat,
-    //                 long: data[i].Long,
-    //                 population: data[i].EstimatedPopulation,
-    //                 total: data[i].TotalWages
-    //             };
-    //             this.setState({zip: newZipObj});
+    //                 state: data[0].State,
+    //                 lat: data[0].Lat,
+    //                 long: data[0].Long,
+    //                 population: data[0].EstimatedPopulation,
+    //                 total: data[0].TotalWages
+    //             }
+    //             this.setState({newZip: newZipObj});
     //         }
-    //     })
+    //     )
     //     .catch((err) => console.log(err));
     // }
 
@@ -37,25 +34,47 @@ constructor(props){
         this.setState({
             zip: events.target.value
         });
+        const url = "http://ctp-zip-api.herokuapp.com/zip/";
+        axios.get(url + events.target.value)
+        .then((response) => {
+            const data = response.data;
+            console.log(data);
+            this.setState({newZip: data});
+            
+        })
+        .catch((err) => console.log(err));
     }
 
     render() {
-        return (
-            <>
+        let display;
+            display = (
             <div className = "search">
                 <label htmlFor="zip">Enter a zip code: </label>
-                <input type="text" value={this.props.zip} onChange = {this.handleZipChange}></input>
+                <input placeholder="Try 10016" type="text" value={this.state.zip} onChange = {this.handleZipChange} ></input>
             </div>
-            <div>
-                <p>
-                    State: {this.state.zip.state}  <br />
-                    Location: ({this.state.zip.lat} ,{this.state.zip.long} ) <br />
-                    Population (estimated): {this.state.zip.population}  <br />
-                    Total Wages: {this.state.zip.total} 
-                </p>
-            </div>
-            </>
-        );
+            
+            );
+        return (
+        <div>
+        <div>
+            {display}
+        </div>
+        <div className = "zip">
+            {this.state.newZip.map(city => {
+                return (
+                <div className="infomration">
+                    {city.LocationText}<br></br>
+                    State: {city.State}<br></br>
+                    Location: ({city.Lat} {city.Long})<br></br>
+                    (Estimated) Population: {city.EstimatedPopulation}<br></br>
+                    Total Wages:{city.TotalWages}<br></br>
+                    <br></br>
+                </div>)
+            })
+        }
+        </div>
+        </div>
+        )
     }
 }
 
