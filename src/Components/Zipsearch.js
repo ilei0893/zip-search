@@ -5,19 +5,21 @@ class Zipsearch extends Component{
 constructor(props){  
   super(props);
   this.state = {
-      zip: "10016"
+      zip: null
     };
-}
+    this.handleZipChange = this.handleZipChange.bind(this);
+  }
 
-    handleChange(event)
-    {
-        this.setState = ({zip: event.target.zip});
+    handleZipChange(events){
+        this.setState({
+            zip: events.target.value
+        });
     }
     render() {
         return (
             <div className = "search">
                 <label for="zip">Enter a zip code: </label>
-                <input type="text" value={this.state.zip} onChange = {this.handleChange}></input>
+                <input type="text" value={this.state.zip} onChange = {this.handleZipChange}></input>
             </div>
         );
     }
