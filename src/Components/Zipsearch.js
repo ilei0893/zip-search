@@ -7,30 +7,31 @@ constructor(props){
   super(props);
   this.state = {
       zip: ""
+      neweZip: []
     };
     this.handleZipChange = this.handleZipChange.bind(this);
   }
 
-    componentDidMount(){
-        const url = "http://ctp-zip-api.herokuapp.com/zip/";
-        axios.get(url + this.props.zip)
-        .then((response) => {
-            const data = response.data;
+    // componentDidMount(){
+    //     const url = `http://ctp-zip-api.herokuapp.com/zip/`;
+    //     axios.get(url + this.props.zip)
+    //     .then((response) => {
+    //         const data = response.data;
 
-            for(let i = 0; i < data.length; i++)
-            {
-                const newZipObj = {
-                    state: data[i].State,
-                    lat: data[i].Lat,
-                    long: data[i].Long,
-                    population: data[i].EstimatedPopulation,
-                    total: data[i].TotalWages
-                };
-                this.setState({zip: newZipObj});
-            }
-        })
-        .catch((err) => console.log(err));
-    }
+    //         for(let i = 0; i < data.length; i++)
+    //         {
+    //             const newZipObj = {
+    //                 state: data[i].State,
+    //                 lat: data[i].Lat,
+    //                 long: data[i].Long,
+    //                 population: data[i].EstimatedPopulation,
+    //                 total: data[i].TotalWages
+    //             };
+    //             this.setState({zip: newZipObj});
+    //         }
+    //     })
+    //     .catch((err) => console.log(err));
+    // }
 
     handleZipChange(events){
         this.setState({
