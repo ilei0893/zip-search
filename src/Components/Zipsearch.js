@@ -2,31 +2,25 @@ import React, { Component } from 'react';
 import axios from "axios";
 
 class Zipsearch extends Component{
-    constructor(props){
-        super(props)
-            this.state ={ zip: null};
-    }
+constructor(props){  
+  super(props);
+  this.state = {
+      zip: "10016"
+    };
+}
 
-    componentDidMount(){
-        axios
-        .get("http://ctp-zip-api.herokuapp.com/zip/" + this.props.name)
-        .then((respone) => {
-            const data = respone.data;
-
-            const newZipObj ={ 
-                city: data.City,
-                state: data.State,
-                location: data.location,
-                population: data.population,
-                totalwages: data.TotalWages      
-            }
-        });
+    handleChange(event)
+    {
+        this.setState = ({zip: event.target.zip});
     }
-    render(){
-        return(
-            <>
-            </>
-        )
+    render() {
+        return (
+            <div className = "search">
+                <label for="zip">Enter a zip code: </label>
+                <input type="text" value={this.state.zip} onChange = {this.handleChange}></input>
+            </div>
+        );
     }
 }
+
 export default Zipsearch;
