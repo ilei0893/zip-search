@@ -53,3 +53,15 @@
   display: flex;
   justify-content: center;
 }
+
+.zip{
+    padding: 50px;
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.information{
+  color: green;
+}

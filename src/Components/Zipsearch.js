@@ -6,7 +6,7 @@ class Zipsearch extends Component{
 constructor(props){  
   super(props);
   this.state = {
-      zip: "10016",
+      zip: null,
       newZip: [],
     };
     this.handleZipChange = this.handleZipChange.bind(this);
@@ -50,7 +50,7 @@ constructor(props){
             display = (
             <div className = "search">
                 <label htmlFor="zip">Enter a zip code: </label>
-                <input type="text" value={this.state.zip} onChange = {this.handleZipChange} ></input>
+                <input placeholder="Try 10016" type="text" value={this.state.zip} onChange = {this.handleZipChange} ></input>
             </div>
             
             );
@@ -61,12 +61,14 @@ constructor(props){
         </div>
         <div className = "zip">
             {this.state.newZip.map(city => {
-                return (<div>
+                return (
+                <div className="infomration">
                     {city.LocationText}<br></br>
-                    {city.State}<br></br>
-                    {city.Lat}<br></br>
-                    {city.Long}<br></br>
-                    {city.TotalWages}<br></br>
+                    State: {city.State}<br></br>
+                    Location: ({city.Lat} {city.Long})<br></br>
+                    (Estimated) Population: {city.EstimatedPopulation}<br></br>
+                    Total Wages:{city.TotalWages}<br></br>
+                    <br></br>
                 </div>)
             })
         }
